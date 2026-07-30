@@ -1,0 +1,324 @@
+﻿<!DOCTYPE html>
+<html lang="es" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menú | ALMA — Cocina y Café</title>
+<meta name="description" content="Carta de ALMA — Cocina y Café en Puerto Ordaz: entradas, platos fuertes, café y postres, bebidas.">
+<meta name="theme-color" content="#17140F">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ALMA — Cocina y Café">
+<meta property="og:title" content="Menú | ALMA — Cocina y Café">
+<meta property="og:description" content="Entradas, platos fuertes, café y postres, bebidas. La carta completa de ALMA en Puerto Ordaz.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=75">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Menú | ALMA — Cocina y Café">
+<meta name="twitter:description" content="Entradas, platos fuertes, café y postres, bebidas. La carta completa de ALMA en Puerto Ordaz.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=75">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍽️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<header class="site-header is-scrolled">
+  <div class="container nav-row">
+    <a class="brand" href="index.html">ALMA</a>
+    <nav class="nav-links" aria-label="Navegación principal">
+      <a class="nav-link" href="index.html">Inicio</a>
+      <a class="nav-link" href="menu.html">Menú</a>
+      <a class="nav-link" href="contacto.html">Contacto</a>
+    </nav>
+    <div style="display:flex; align-items:center; gap:1rem;">
+      <a class="nav-cta" href="https://wa.me/584249262890?text=Hola%2C%20quisiera%20reservar%20una%20mesa%20en%20ALMA" target="_blank" rel="noopener">Reservar</a>
+      <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-top">
+    <span class="brand" style="color:var(--color-cream-on-dark)">ALMA</span>
+    <button class="mobile-menu-close" aria-label="Cerrar menú">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="26" height="26"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+    </button>
+  </div>
+  <nav class="mobile-menu-links" aria-label="Navegación móvil">
+    <a href="index.html">Inicio</a>
+    <a href="menu.html">Menú</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
+  <div class="mobile-menu-cta">
+    <a class="btn btn-primary" style="width:100%" href="https://wa.me/584249262890?text=Hola%2C%20quisiera%20reservar%20una%20mesa%20en%20ALMA" target="_blank" rel="noopener">Reservar por WhatsApp</a>
+  </div>
+</div>
+
+<main id="main">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Nuestra carta</span>
+      <h1>Un menú para cada momento del día</h1>
+      <p>Desde una entrada compartida hasta el café con postre que cierra la tarde. Precios expresados en USD.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <div class="menu-tabs" role="tablist" aria-label="Filtrar categorías del menú">
+        <button class="menu-tab is-active" data-target="all" role="tab" aria-selected="true">Todo</button>
+        <button class="menu-tab" data-target="entradas" role="tab" aria-selected="false">Entradas</button>
+        <button class="menu-tab" data-target="fuertes" role="tab" aria-selected="false">Platos Fuertes</button>
+        <button class="menu-tab" data-target="cafe" role="tab" aria-selected="false">Café &amp; Postres</button>
+        <button class="menu-tab" data-target="bebidas" role="tab" aria-selected="false">Bebidas</button>
+      </div>
+
+      <div class="menu-category" data-cat="entradas" data-reveal-group>
+        <div class="menu-category-media reveal">
+          <span class="menu-category-index">01</span>
+          <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=78" alt="Tabla de quesos y embutidos de ALMA" loading="lazy" decoding="async">
+        </div>
+        <div>
+          <div class="menu-category-head">
+            <h2>Entradas</h2>
+            <p>Para compartir, mientras se decide el resto.</p>
+          </div>
+          <div class="menu-row reveal">
+            <div class="menu-row-top">
+              <h3 class="menu-row-name">Ensalada de temporada</h3>
+              <span class="menu-row-leader" aria-hidden="true"></span>
+              <span class="menu-row-price">$6</span>
+            </div>
+            <p class="menu-row-desc">Hojas verdes, queso de mano, vinagreta de la casa.</p>
+            <span class="menu-item-tag">Vegetariano</span>
+          </div>
+          <div class="menu-row reveal">
+            <div class="menu-row-top">
+              <h3 class="menu-row-name">Tabla ALMA</h3>
+              <span class="menu-row-leader" aria-hidden="true"></span>
+              <span class="menu-row-price">$12</span>
+            </div>
+            <p class="menu-row-desc">Quesos, embutidos, frutos secos, pan artesanal.</p>
+          </div>
+          <div class="menu-row reveal">
+            <div class="menu-row-top">
+              <h3 class="menu-row-name">Empanadas criollas (3 uds)</h3>
+              <span class="menu-row-leader" aria-hidden="true"></span>
+              <span class="menu-row-price">$5</span>
+            </div>
+            <p class="menu-row-desc">Masa de maíz, relleno a elegir: mechada, pollo o queso.</p>
+          </div>
+          <div class="menu-row reveal">
+            <div class="menu-row-top">
+              <h3 class="menu-row-name">Sopa del día</h3>
+              <span class="menu-row-leader" aria-hidden="true"></span>
+              <span class="menu-row-price">$5</span>
+            </div>
+            <p class="menu-row-desc">Preparación diaria; consulta con el mesonero.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category" data-cat="fuertes" data-reveal-group>
+        <div class="menu-category-media reveal">
+          <span class="menu-category-index">02</span>
+          <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=800&q=78" alt="Lomito a la parrilla, plato fuerte de ALMA" loading="lazy" decoding="async">
+        </div>
+        <div>
+          <div class="menu-category-head">
+            <h2>Platos Fuertes</h2>
+            <p>De la parrilla y la cocina, sin prisa.</p>
+          </div>
+          <div class="menu-row reveal">
+            <div class="menu-row-top">
+              <h3 class="menu-row-name">Lomito a la parrilla</h3>
+              <span class="menu-row-leader" aria-hidden="true"></span>
+              <span class="menu-row-price">$16</span>
+            </div>
+            <p class="menu-row-desc">Corte premium, papas al romero, ensalada.</p>
+          </div>
+          <div class="menu-row reveal">
+            <div class="menu-row-top">
+              <h3 class="menu-row-name">Risotto de la casa</h3>
+              <span class="menu-row-leader" aria-hidden="true"></span>
+              <span class="menu-row-price">$13</span>
+            </div>
+            <p class="menu-row-desc">Hongos salteados, parmesano curado.</p>
+            <span class="menu-item-tag">Vegetariano</span>
+          </div>
+          <div class="menu-row reveal">
+            <div class="menu-row-top">
+              <h3 class="menu-row-name">Pasta artesanal al pesto</h3>
+              <span class="menu-row-leader" aria-hidden="true"></span>
+              <span class="menu-row-price">$11</span>
+            </div>
+            <p class="menu-row-desc">Pesto de albahaca, tomates confitados, piñones.</p>
+          </div>
+          <div class="menu-row reveal">
+            <div class="menu-row-top">
+              <h3 class="menu-row-name">Pescado del día</h3>
+              <span class="menu-row-leader" aria-hidden="true"></span>
+              <span class="menu-row-price">$15</span>
+            </div>
+            <p class="menu-row-desc">Al horno, vegetales, salsa de la casa.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category" data-cat="cafe" data-reveal-group>
+        <div class="menu-category-media reveal">
+          <span class="menu-category-index">03</span>
+          <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=800&q=78" alt="Torta de chocolate, postre de la cafetería ALMA" loading="lazy" decoding="async">
+        </div>
+        <div>
+          <div class="menu-category-head">
+            <h2>Café &amp; Postres</h2>
+            <p>La razón para quedarse un rato más.</p>
+          </div>
+          <div class="menu-row reveal">
+            <div class="menu-row-top">
+              <h3 class="menu-row-name">Café de especialidad</h3>
+              <span class="menu-row-leader" aria-hidden="true"></span>
+              <span class="menu-row-price">$3</span>
+            </div>
+            <p class="menu-row-desc">Espresso, americano o cortado.</p>
+          </div>
+          <div class="menu-row reveal">
+            <div class="menu-row-top">
+              <h3 class="menu-row-name">Torta de chocolate ALMA</h3>
+              <span class="menu-row-leader" aria-hidden="true"></span>
+              <span class="menu-row-price">$5</span>
+            </div>
+            <p class="menu-row-desc">Cacao, ganache, sal marina.</p>
+          </div>
+          <div class="menu-row reveal">
+            <div class="menu-row-top">
+              <h3 class="menu-row-name">Cappuccino</h3>
+              <span class="menu-row-leader" aria-hidden="true"></span>
+              <span class="menu-row-price">$3.5</span>
+            </div>
+            <p class="menu-row-desc">Espresso, leche vaporizada, espuma sedosa.</p>
+          </div>
+          <div class="menu-row reveal">
+            <div class="menu-row-top">
+              <h3 class="menu-row-name">Cheesecake de frutos rojos</h3>
+              <span class="menu-row-leader" aria-hidden="true"></span>
+              <span class="menu-row-price">$5.5</span>
+            </div>
+            <p class="menu-row-desc">Base de galleta, coulis de frutos del bosque.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category" data-cat="bebidas" data-reveal-group>
+        <div class="menu-category-media reveal">
+          <span class="menu-category-index">04</span>
+          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=800&q=78" alt="Coctel de autor de la barra ALMA" loading="lazy" decoding="async">
+        </div>
+        <div>
+          <div class="menu-category-head">
+            <h2>Bebidas</h2>
+            <p>Para acompañar, del mediodía a la noche.</p>
+          </div>
+          <div class="menu-row reveal">
+            <div class="menu-row-top">
+              <h3 class="menu-row-name">Coctel de autor</h3>
+              <span class="menu-row-leader" aria-hidden="true"></span>
+              <span class="menu-row-price">$7</span>
+            </div>
+            <p class="menu-row-desc">Rotación de temporada, frutas locales.</p>
+          </div>
+          <div class="menu-row reveal">
+            <div class="menu-row-top">
+              <h3 class="menu-row-name">Jugo natural</h3>
+              <span class="menu-row-leader" aria-hidden="true"></span>
+              <span class="menu-row-price">$3</span>
+            </div>
+            <p class="menu-row-desc">Fruta fresca según disponibilidad del día.</p>
+          </div>
+          <div class="menu-row reveal">
+            <div class="menu-row-top">
+              <h3 class="menu-row-name">Té e infusiones</h3>
+              <span class="menu-row-leader" aria-hidden="true"></span>
+              <span class="menu-row-price">$2.5</span>
+            </div>
+            <p class="menu-row-desc">Selección de tés e infusiones de hierbas.</p>
+          </div>
+          <div class="menu-row reveal">
+            <div class="menu-row-top">
+              <h3 class="menu-row-name">Copa de vino</h3>
+              <span class="menu-row-leader" aria-hidden="true"></span>
+              <span class="menu-row-price">$6</span>
+            </div>
+            <p class="menu-row-desc">Tinta o blanca; consulta la carta vigente.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section section-tight">
+    <div class="container">
+      <div class="cta-band">
+        <span class="eyebrow">¿Se te antojó algo?</span>
+        <h2>Reserva tu mesa en ALMA</h2>
+        <p>Escríbenos por WhatsApp y te confirmamos disponibilidad en minutos.</p>
+        <div class="cta-actions">
+          <a class="btn btn-whatsapp" href="https://wa.me/584249262890?text=Hola%2C%20quisiera%20reservar%20una%20mesa%20en%20ALMA" target="_blank" rel="noopener">
+            <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 3.2C9.1 3.2 3.5 8.7 3.5 15.5c0 2.4.7 4.7 1.9 6.7L3.2 29l7-2.3c1.9 1.1 4.1 1.7 6.4 1.7h.1c6.9 0 12.5-5.5 12.5-12.4.1-6.9-5.4-12.4-12.2-12.8zm0 22.6h-.1c-2 0-4-.5-5.7-1.6l-.4-.2-4.2 1.4 1.4-4.1-.3-.4a10.15 10.15 0 0 1-1.7-5.7c0-5.7 4.7-10.3 10.4-10.3 2.8 0 5.4 1.1 7.3 3s3 4.5 3 7.3c.1 5.7-4.6 10.6-10.7 10.6z"/></svg>
+            Escribir por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">ALMA</div>
+        <p>Cocina y Café · Sector Los Olivos, Puerto Ordaz, Venezuela.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorar</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="menu.html">Menú</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="https://wa.me/584249262890" target="_blank" rel="noopener">+58 424-926-2890</a></li>
+          <li><a href="contacto.html">Los Olivos, Puerto Ordaz</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ALMA Cocina y Café. Todos los derechos reservados.</span>
+      <span>Precios sujetos a cambio sin previo aviso.</span>
+    </div>
+  </div>
+</footer>
+
+<a class="float-whatsapp" href="https://wa.me/584249262890?text=Hola%2C%20quisiera%20reservar%20una%20mesa%20en%20ALMA" target="_blank" rel="noopener" aria-label="Reservar por WhatsApp">
+  <svg viewBox="0 0 32 32" fill="#0b2e18"><path d="M16 3.2C9.1 3.2 3.5 8.7 3.5 15.5c0 2.4.7 4.7 1.9 6.7L3.2 29l7-2.3c1.9 1.1 4.1 1.7 6.4 1.7h.1c6.9 0 12.5-5.5 12.5-12.4.1-6.9-5.4-12.4-12.2-12.8zm0 22.6h-.1c-2 0-4-.5-5.7-1.6l-.4-.2-4.2 1.4 1.4-4.1-.3-.4a10.15 10.15 0 0 1-1.7-5.7c0-5.7 4.7-10.3 10.4-10.3 2.8 0 5.4 1.1 7.3 3s3 4.5 3 7.3c.1 5.7-4.6 10.6-10.7 10.6z"/></svg>
+</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,1031 @@
+/* ============================================================
+   ALMA — Cocina y Café
+   Design tokens: warm ivory + near-black + bronze/olive accents
+   Typography: Bodoni Moda (display serif) + Inter (sans, UI/body)
+   ============================================================ */
+
+:root {
+  /* Color tokens */
+  --color-bg: #FAF6F0;
+  --color-bg-alt: #F1EAE0;
+  --color-surface: #FFFFFF;
+  --color-ink: #211E1A;
+  --color-ink-soft: #4A4640;
+  --color-dark: #17140F;
+  --color-dark-surface: #221E17;
+  --color-cream-on-dark: #F3EDE3;
+  --color-accent: #A9782F;      /* bronze/gold */
+  --color-accent-dark: #8A6423;
+  --color-olive: #545F45;       /* muted olive/tropical green */
+  --color-line: rgba(33, 30, 26, 0.12);
+  --color-line-dark: rgba(243, 237, 227, 0.16);
+
+  /* Typography — Bodoni Moda's dramatic thick/thin contrast reads as
+     high-fashion/editorial rather than the soft, friendly register of
+     rounder display serifs; deliberately far from anything "urban". */
+  --font-display: 'Bodoni Moda', 'Didot', 'Georgia', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Spacing scale (marketing / spacious) */
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 9rem;
+
+  /* Layout */
+  --container-max: 1200px;
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 24px;
+
+  /* Motion */
+  --ease-elegant: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 200ms;
+  --dur-med: 400ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #17140F;
+    --color-bg-alt: #1D1913;
+    --color-surface: #221E17;
+    --color-ink: #F3EDE3;
+    --color-ink-soft: #C9C0B2;
+    --color-line: rgba(243, 237, 227, 0.14);
+  }
+}
+
+/* ============================================================
+   Reset
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Whole-site film grain — the cheap trick that reads as expensive:
+   ties every photo and flat color panel into one printed material. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height: 1.15; margin: 0; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+button { font-family: inherit; }
+
+/* Focus visibility — never remove */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--color-dark);
+  color: var(--color-cream-on-dark);
+  padding: var(--space-sm) var(--space-md);
+  z-index: 1000;
+  border-radius: 0 0 var(--radius-sm) 0;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .container { padding: 0 var(--space-xl); }
+}
+
+section { position: relative; }
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+
+/* ============================================================
+   Header / Nav
+   ============================================================ */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: var(--space-md) 0;
+  transition: background var(--dur-med) var(--ease-elegant), padding var(--dur-med) var(--ease-elegant), box-shadow var(--dur-med) var(--ease-elegant);
+}
+.site-header.is-scrolled {
+  background: rgba(250, 246, 240, 0.92);
+  backdrop-filter: blur(10px);
+  padding: var(--space-sm) 0;
+  box-shadow: 0 1px 0 var(--color-line);
+}
+@media (prefers-color-scheme: dark) {
+  .site-header.is-scrolled { background: rgba(23, 20, 15, 0.85); }
+}
+
+.nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--color-ink);
+}
+.site-header:not(.is-scrolled) .brand,
+.site-header:not(.is-scrolled) .nav-link {
+  color: var(--nav-on-hero, var(--color-ink));
+}
+
+.nav-links {
+  display: none;
+  align-items: center;
+  gap: var(--space-lg);
+}
+@media (min-width: 900px) {
+  .nav-links { display: flex; }
+}
+.nav-link {
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-ink);
+  position: relative;
+  padding: var(--space-2xs) 0;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 100%;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transition: right var(--dur-med) var(--ease-elegant);
+}
+.nav-link:hover::after,
+.nav-link.is-active::after { right: 0; }
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  background: var(--color-ink);
+  color: var(--color-bg);
+  padding: 0.7rem 1.3rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-height: 44px;
+  transition: transform var(--dur-fast) var(--ease-elegant), background var(--dur-fast) var(--ease-elegant);
+}
+.nav-cta:hover { background: var(--color-accent); transform: translateY(-1px); }
+
+.nav-toggle {
+  display: inline-flex;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-ink);
+}
+@media (min-width: 900px) { .nav-toggle { display: none; } }
+.nav-toggle svg { width: 26px; height: 26px; }
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--color-dark);
+  color: var(--color-cream-on-dark);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-md);
+  transform: translateY(-100%);
+  transition: transform var(--dur-med) var(--ease-elegant);
+}
+.mobile-menu.is-open { transform: translateY(0); }
+.mobile-menu-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2xl);
+}
+.mobile-menu-close {
+  min-width: 44px; min-height: 44px;
+  background: none; border: none; color: var(--color-cream-on-dark);
+  cursor: pointer;
+}
+.mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+.mobile-menu-links a {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  text-decoration: none;
+  color: var(--color-cream-on-dark);
+}
+.mobile-menu-cta {
+  margin-top: auto;
+  padding-top: var(--space-lg);
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  min-height: 48px;
+  padding: 0.9rem 1.75rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-elegant), background var(--dur-fast) var(--ease-elegant), color var(--dur-fast) var(--ease-elegant), border-color var(--dur-fast) var(--ease-elegant);
+}
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--color-accent-dark); transform: translateY(-2px); }
+.btn-outline {
+  background: transparent;
+  border-color: currentColor;
+  color: var(--color-ink);
+}
+.btn-outline:hover { background: var(--color-ink); color: var(--color-bg); }
+.btn-on-dark { color: var(--color-cream-on-dark); }
+.btn-on-dark.btn-outline:hover { background: var(--color-cream-on-dark); color: var(--color-dark); }
+
+.btn-whatsapp {
+  background: #25D366;
+  color: #0b2e18;
+}
+.btn-whatsapp:hover { background: #1ebe57; transform: translateY(-2px); }
+.btn-whatsapp svg { width: 20px; height: 20px; }
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-start;
+  color: var(--color-cream-on-dark);
+  overflow: hidden;
+  --nav-on-hero: var(--color-cream-on-dark);
+}
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(12%) saturate(1.08) contrast(1.05) brightness(0.97);
+}
+.hero-media::after {
+  /* Darkest near the top: that's where the fixed header and the
+     hero copy both sit now, regardless of viewport height. */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(23,20,15,0.74) 0%, rgba(23,20,15,0.4) 42%, rgba(23,20,15,0.5) 100%),
+              linear-gradient(15deg, rgba(169,120,47,0.14), rgba(84,95,69,0.1));
+  mix-blend-mode: normal;
+}
+
+/* ---- Consistent photo grade across all content images ----
+   Ties disparate stock photography into one deliberate palette
+   instead of reading as raw, unedited stock. */
+.intro-media img,
+.gallery-item img,
+.menu-item-media img {
+  filter: sepia(10%) saturate(1.12) contrast(1.04) brightness(0.99);
+}
+.intro-media::after,
+.gallery-item::after,
+.menu-item-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(169,120,47,0.14) 0%, rgba(23,20,15,0.06) 45%, rgba(84,95,69,0.16) 100%);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.menu-item-media { position: relative; }
+.hero-content {
+  /* Top-anchored on purpose: padding-top here is a hard floor, not a
+     suggestion. Bottom-anchoring hero copy (the previous approach)
+     made the eyebrow's position depend on total content height vs.
+     viewport height — on any window shorter than the content stack
+     (a very ordinary 1280x720 laptop, for instance) the text crept
+     up and collided with the fixed header. Anchoring from the top
+     with a fixed clearance makes that geometrically impossible. */
+  position: relative;
+  z-index: 1;
+  padding-top: clamp(7rem, 16vh, 9.5rem);
+  padding-bottom: var(--space-2xl);
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero-eyebrow {
+  color: var(--color-cream-on-dark);
+  opacity: 0.85;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  max-width: 14ch;
+  margin: 0 auto var(--space-md);
+}
+.hero-sub {
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  max-width: 38ch;
+  color: rgba(243,237,227,0.88);
+  margin: 0 auto var(--space-lg);
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+.hero-scroll-cue {
+  /* Bottom-left, not bottom-right: the floating WhatsApp button
+     already owns that corner on every page, and stacking a second
+     element there crowded it. */
+  position: absolute;
+  bottom: var(--space-md);
+  left: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(243,237,227,0.7);
+  z-index: 1;
+}
+@media (max-width: 640px) {
+  /* Low-value decoration on a touch device where scrolling needs no
+     hint — remove it there and let the hero copy breathe instead. */
+  .hero-scroll-cue { display: none; }
+}
+.hero-scroll-cue .line {
+  width: 1px;
+  height: 40px;
+  background: rgba(243,237,227,0.5);
+  overflow: hidden;
+}
+.hero-scroll-cue .line::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 40%;
+  background: var(--color-cream-on-dark);
+  animation: scrollcue 2.2s ease-in-out infinite;
+}
+@keyframes scrollcue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(250%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll-cue .line::after { animation: none; }
+}
+
+/* ============================================================
+   Sections & general layout
+   ============================================================ */
+.section {
+  padding: var(--space-2xl) 0;
+}
+.section-tight { padding: var(--space-xl) 0; }
+.section-dark {
+  background: var(--color-dark);
+  color: var(--color-cream-on-dark);
+}
+.section-alt { background: var(--color-bg-alt); }
+
+.section-head {
+  max-width: 640px;
+  margin-bottom: var(--space-xl);
+}
+.section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+
+.section-title {
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+}
+
+.section-desc {
+  margin-top: var(--space-sm);
+  color: var(--color-ink-soft);
+  font-size: 1.05rem;
+  max-width: 55ch;
+}
+.section-head.center .section-desc { margin-left: auto; margin-right: auto; }
+.section-dark .section-desc { color: rgba(243,237,227,0.75); }
+
+/* Reveal utility — driven by GSAP, CSS is the fallback/base state.
+   Blur-to-focus reads as a considered edit; plain translateY fade-up
+   is the one motion pattern every $200 template already uses. */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px) scale(0.985);
+  filter: blur(6px);
+}
+.no-js .reveal, .reduced-motion .reveal {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* Curtain wipe — used on gallery imagery instead of a fade */
+.reveal-clip {
+  clip-path: inset(0 0 100% 0);
+}
+.no-js .reveal-clip, .reduced-motion .reveal-clip {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Word-split rise — hero/section headings animate in by word,
+   each word masked by its own overflow-hidden line. */
+.split-line {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.split-word {
+  display: inline-block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+.no-js .split-word, .reduced-motion .split-word {
+  transform: none;
+}
+
+/* ============================================================
+   Intro / About grid
+   ============================================================ */
+.intro-grid {
+  display: grid;
+  gap: var(--space-xl);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .intro-grid { grid-template-columns: 0.9fr 1.1fr; }
+}
+.intro-media {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4/5;
+}
+.intro-media img { width: 100%; height: 100%; object-fit: cover; }
+.intro-badge {
+  position: absolute;
+  bottom: var(--space-md);
+  left: var(--space-md);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+.intro-badge strong { display: block; font-size: 1.5rem; color: var(--color-accent); }
+.intro-badge span { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-soft); font-family: var(--font-body); }
+
+.intro-text p + p { margin-top: var(--space-md); }
+.intro-text { color: var(--color-ink-soft); font-size: 1.05rem; }
+
+/* ============================================================
+   Feature / highlight cards
+   ============================================================ */
+.feature-grid {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: 1fr;
+  perspective: 1200px;
+}
+@media (min-width: 640px) {
+  .feature-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.feature-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  transition: transform var(--dur-med) var(--ease-elegant), box-shadow var(--dur-med) var(--ease-elegant);
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(33,30,26,0.08);
+}
+.feature-icon {
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: var(--color-bg-alt);
+  color: var(--color-accent);
+  margin-bottom: var(--space-md);
+}
+.feature-icon svg { width: 24px; height: 24px; }
+.feature-card h3 { font-size: 1.25rem; margin-bottom: var(--space-2xs); }
+.feature-card p { color: var(--color-ink-soft); font-size: 0.95rem; }
+
+/* ============================================================
+   Gallery
+   ============================================================ */
+.gallery-grid {
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: repeat(2, 1fr);
+  perspective: 1200px;
+}
+@media (min-width: 768px) {
+  .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+  .gallery-grid .g-tall { grid-row: span 2; }
+}
+.gallery-item {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  position: relative;
+}
+.gallery-grid .g-tall .gallery-item { aspect-ratio: 1/2.05; }
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 600ms var(--ease-elegant);
+}
+.gallery-item:hover img { transform: scale(1.06); }
+
+/* ============================================================
+   Quote / testimonial
+   ============================================================ */
+.quote-block {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+.quote-block blockquote {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2.1rem);
+  line-height: 1.35;
+  margin: 0 0 var(--space-md);
+}
+.quote-block cite {
+  font-style: normal;
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   CTA band
+   ============================================================ */
+.cta-band {
+  border-radius: var(--radius-lg);
+  background: var(--color-dark);
+  color: var(--color-cream-on-dark);
+  padding: var(--space-2xl) var(--space-lg);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-band h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: var(--space-sm); }
+.cta-band p { color: rgba(243,237,227,0.78); max-width: 50ch; margin: 0 auto var(--space-lg); }
+.cta-actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); justify-content: center; }
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.site-footer {
+  background: var(--color-dark);
+  color: rgba(243,237,227,0.7);
+  padding: var(--space-2xl) 0 var(--space-lg);
+}
+.footer-grid {
+  display: grid;
+  gap: var(--space-xl);
+  grid-template-columns: 1fr;
+  margin-bottom: var(--space-xl);
+}
+@media (min-width: 768px) {
+  .footer-grid { grid-template-columns: 1.3fr 1fr 1fr; }
+}
+.footer-brand { font-family: var(--font-display); font-size: 1.5rem; color: var(--color-cream-on-dark); margin-bottom: var(--space-sm); }
+.footer-col h4 {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-cream-on-dark);
+  margin-bottom: var(--space-md);
+  font-weight: 600;
+}
+.footer-col li { margin-bottom: var(--space-xs); }
+.footer-col a { text-decoration: none; }
+.footer-col a:hover { color: var(--color-cream-on-dark); }
+.footer-bottom {
+  border-top: 1px solid var(--color-line-dark);
+  padding-top: var(--space-md);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+
+/* ============================================================
+   Floating WhatsApp button (all pages)
+   ============================================================ */
+.float-whatsapp {
+  position: fixed;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  z-index: 90;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  text-decoration: none;
+  transition: transform var(--dur-fast) var(--ease-elegant), opacity var(--dur-med) var(--ease-elegant);
+}
+.float-whatsapp:hover { transform: scale(1.08); }
+.float-whatsapp.is-hidden {
+  /* Fixed buttons sit in front of whatever scrolls beneath them —
+     fine at rest, but it reads as broken when a heading or another
+     button happens to pass under that corner mid-scroll. Fading it
+     out while actively scrolling (main.js) avoids that collision
+     entirely; it reappears the moment scrolling stops. Still hidden
+     under reduced-motion, just without the animated fade. */
+  opacity: 0;
+  pointer-events: none;
+}
+.float-whatsapp svg { width: 28px; height: 28px; position: relative; z-index: 1; }
+.float-whatsapp::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(37, 211, 102, 0.6);
+  animation: whatsapp-pulse 2.8s ease-out infinite;
+}
+@keyframes whatsapp-pulse {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-whatsapp::before { animation: none; display: none; }
+}
+
+/* ============================================================
+   Page hero (interior pages: Menú, Contacto)
+   ============================================================ */
+.page-hero {
+  padding: calc(var(--space-3xl)) 0 var(--space-xl);
+  background: var(--color-bg-alt);
+  text-align: center;
+}
+.page-hero .eyebrow { display: block; }
+.page-hero h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
+.page-hero p { margin-top: var(--space-sm); color: var(--color-ink-soft); max-width: 55ch; margin-left: auto; margin-right: auto; }
+
+/* Address pill — the full address, visible the moment the page
+   loads, no scrolling to the contact card required. */
+.address-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-lg);
+  padding: 0.7rem 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  font-size: 0.92rem;
+  color: var(--color-ink);
+  max-width: 100%;
+  text-align: left;
+}
+.address-pill svg {
+  width: 20px; height: 20px;
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+.page-hero-actions {
+  margin-top: var(--space-md);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+/* ============================================================
+   Menu page
+   ============================================================ */
+.menu-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  justify-content: center;
+  margin-bottom: var(--space-2xl);
+}
+.menu-tab {
+  border: 1px solid var(--color-line);
+  background: transparent;
+  color: var(--color-ink);
+  padding: 0.65rem 1.2rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 44px;
+  transition: background var(--dur-fast) var(--ease-elegant), color var(--dur-fast) var(--ease-elegant), border-color var(--dur-fast) var(--ease-elegant);
+}
+.menu-tab.is-active,
+.menu-tab:hover {
+  background: var(--color-ink);
+  color: var(--color-bg);
+  border-color: var(--color-ink);
+}
+
+/* Editorial two-column category: one large, deliberate image
+   instead of a grid of small thumbnails, paired with a typographic
+   item list — the fine-dining-menu convention of a dotted leader
+   connecting a dish name to its price. */
+.menu-category {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-3xl);
+  align-items: start;
+}
+.menu-category:last-child { margin-bottom: 0; }
+@media (min-width: 900px) {
+  .menu-category { grid-template-columns: 0.82fr 1.18fr; gap: var(--space-2xl); }
+}
+
+.menu-category-media {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 3/4;
+}
+.menu-category-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(10%) saturate(1.12) contrast(1.04) brightness(0.95);
+}
+.menu-category-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(200deg, rgba(23,20,15,0.65) 0%, rgba(23,20,15,0.05) 55%);
+}
+.menu-category-index {
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  z-index: 1;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 2.75rem;
+  color: var(--color-cream-on-dark);
+  line-height: 1;
+}
+
+.menu-category-head { margin-bottom: var(--space-lg); }
+.menu-category-head h2 { font-size: clamp(2rem, 3.4vw, 2.6rem); }
+.menu-category-head p {
+  margin-top: 0.4rem;
+  color: var(--color-ink-soft);
+  font-size: 0.95rem;
+  max-width: 46ch;
+}
+
+.menu-row {
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--color-line);
+}
+.menu-row:last-child { border-bottom: none; padding-bottom: 0; }
+.menu-row-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+.menu-row-name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+.menu-row-leader {
+  flex: 1;
+  border-bottom: 1px dotted var(--color-line);
+  margin-bottom: 0.4em;
+  display: none;
+}
+@media (min-width: 560px) {
+  .menu-row-leader { display: block; }
+}
+@media (max-width: 559px) {
+  .menu-row-top { justify-content: space-between; flex-wrap: wrap; row-gap: 0.2rem; }
+}
+.menu-row-price {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+  font-weight: 600;
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+.menu-row-desc {
+  margin-top: 0.35rem;
+  color: var(--color-ink-soft);
+  font-size: 0.92rem;
+  max-width: 52ch;
+}
+.menu-item-tag {
+  display: inline-block;
+  margin-top: var(--space-2xs);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-olive);
+  border: 1px solid var(--color-olive);
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+}
+
+/* ============================================================
+   Contact page
+   ============================================================ */
+.contact-grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+@media (min-width: 900px) {
+  /* Stretch (the grid default) so both columns share one row height —
+     align-items:start left the map's column height undefined, which
+     is what caused the broken/collapsed iframe below. */
+  .contact-grid { grid-template-columns: 1fr 1fr; }
+  .contact-card { height: 100%; }
+}
+.contact-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+.contact-info-row {
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--color-line);
+}
+.contact-info-row:last-child { border-bottom: none; padding-bottom: 0; }
+.contact-info-row:first-child { padding-top: 0; }
+.contact-icon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--color-bg-alt);
+  color: var(--color-accent);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.contact-icon svg { width: 22px; height: 22px; }
+.contact-info-row h3 { font-size: 1rem; font-family: var(--font-body); font-weight: 600; margin-bottom: 0.2rem; }
+.contact-info-row p, .contact-info-row a { color: var(--color-ink-soft); font-size: 0.95rem; text-decoration: none; }
+.contact-info-row a:hover { color: var(--color-accent); }
+
+.hours-table { width: 100%; border-collapse: collapse; margin-top: var(--space-sm); }
+.hours-table td { padding: 0.4rem 0; font-size: 0.92rem; }
+.hours-table td:last-child { text-align: right; color: var(--color-ink-soft); }
+.hours-table tr.is-today td { color: var(--color-accent); font-weight: 600; }
+
+.map-wrap {
+  /* position:relative + an absolutely-positioned iframe sidesteps the
+     percentage-height-of-an-auto-height-parent problem entirely: an
+     inset:0 child always fills whatever box this ends up being,
+     instead of silently resolving to "auto" and collapsing. */
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  aspect-ratio: 4/3;
+  background: var(--color-bg-alt);
+}
+.map-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+@media (min-width: 900px) {
+  .map-wrap { aspect-ratio: auto; height: 100%; min-height: 480px; }
+}
+
+/* ============================================================
+   Location teaser (home page) — reuses .contact-grid/.map-wrap,
+   a shorter preview with its own "see full details" link instead
+   of duplicating the contact page.
+   ============================================================ */
+.location-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+@media (min-width: 900px) {
+  .location-copy { align-self: center; }
+  .location-grid .map-wrap { min-height: 340px; }
+}
+.location-copy .btn { margin-top: var(--space-xs); }
+
+/* Utility */
+.text-center { text-align: center; }
+.mt-lg { margin-top: var(--space-lg); }
